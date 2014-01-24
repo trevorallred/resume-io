@@ -1,0 +1,30 @@
+{
+    "version": "1.0",
+    "name": "John Doe",
+    "summary": "A short bio for the sample resume.",
+    "where": [
+        {
+            "slug": "foo",
+            "name": "Foo Company, Inc",
+            "start": "Jan 2000",
+            "end": "Current",
+            "website": "http://www.company.com/",
+            "logo": "images/logo-byu.png",
+            "about": "This is a fake company name."
+        }
+    ],
+    "what": [
+        {
+            "slug": "proj",
+            "name": "Major Project or Degree",
+            "summary": "A short summary here.",
+            "where": "foo"
+        }
+    ],
+    "how": [
+        {
+            "slug": "scrum",
+            "name": "Scrum"
+        }
+    ]
+}

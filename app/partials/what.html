@@ -1,0 +1,34 @@
+<ol class="breadcrumb">
+    <li><a href="/">Resume for {{resume_data.name}}</a></li>
+    <li ng-if="where"><a href="/#where/{{where.slug}}">{{where.name}}</a></li>
+    <li class="active">{{what.name}}</li>
+</ol>
+<div class="container">
+    <div class="row">
+        <h2>{{what.name}}</h2>
+
+        <p class="dates badge" ng-if="what.start">{{what.start}}<span ng-if="what.end"> - </span>{{what.end}}</p>
+
+        <img src="{{what.logo}}" ng-if="what.logo">
+        <h5 ng-if="where">At <a href="/#where/{{where.slug}}">{{where.name}}</a></h5>
+
+        <div ng-if="what.about">
+            <h5>About {{what.name}}</h5>
+
+            <p class="about">{{what.about}}</p>
+        </div>
+        <div ng-if="what.role">
+            <h5>My Role</h5>
+
+            <p class="role">{{what.role}}</p>
+        </div>
+        <div class="col-lg-2 how" ng-if="what.hows.length > 0">
+            <h3 title="How">Skills Used</h3>
+
+            <div>
+                <a href="/#how/{{how}}" class="badge" ng-repeat="how in what.hows">{{how}}</a>
+            </div>
+        </div>
+
+    </div>
+</div>

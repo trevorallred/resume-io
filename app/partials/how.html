@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+        <h2>{{how.name}}</h2>
+
+        <p class="dates badge">{{where.start}} - {{where.end}}</p>
+
+        <img src="images/logo-pics.png">
+        <h5>About {{where.name}}</h5>
+
+        <p class="about">{{where.about}}</p>
+
+        <h5>My Role</h5>
+
+        <p class="role">{{where.role}}</p>
+
+        <div class="col-lg-5 what" ng-if="whats.length > 0">
+            <h3 title="What">Projects & Accomplishments</h3>
+
+            <div class="list-group">
+                <a href="/#what/{{what.slug}}" class="list-group-item" ng-repeat="what in whats">
+                    <h4>{{what.name}}</h4>
+
+                    <p class="dates badge">{{what.start}} - {{what.end}}</p>
+
+                    <p class="quick-summary">{{what.summary}}</p>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-2 how" ng-if="hows.length > 0">
+            <h3 title="How">Skills</h3>
+
+            <div>
+                <a href="/#how/{{how.slug}}" class="badge" ng-repeat="how in hows">{{how.name}}</a>
+            </div>
+        </div>
+
+    </div>
+</div>

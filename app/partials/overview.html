@@ -1,0 +1,75 @@
+<div id="wrap" class="container">
+    <div class="jumbotron">
+        <div class="profile-photo col-md-3" style="text-align: center;">
+            <img class="img-circle" src="{{resume_data.photo}}">
+        </div>
+        <div class="col-md-9">
+            <h1>{{resume_data.name}}</h1>
+            <h3 ng-if="resume_data.tagline">{{resume_data.tagline}}</h3>
+
+            <p class="clearfix">{{resume_data.summary}}</p>
+        </div>
+        <div class="clearfix col-xm-12"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 how bs-callout bs-callout-warning" ng-if="resume_data.how">
+            <h3 title="How">Skills</h3>
+            <a href="/#how/{{how.slug}}" class="badge" ng-repeat="how in resume_data.how">{{how.name}}</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 where">
+            <h3 title="Where">Work History & Education</h3>
+
+            <div class="alert alert-warning" ng-if="!resume_data.where">
+                Add work history and education by adding in a where element to resume.json
+            </div>
+
+            <div class="list-group">
+                <a href="/#where/{{where.slug}}" class="list-group-item thumbnail col-sm-6 col-md-12"
+                   ng-repeat="where in resume_data.where">
+                    <img src="{{where.logo}}" class="img-thumbnail img-responsive" ng-if="where.logo">
+
+                    <div class="caption clearfix">
+                        <p class="dates badge" ng-if="where.start">{{where.start}}<span ng-if="where.end"> - </span>{{where.end}}
+                        </p>
+
+                        <h4>{{where.name}}</h4>
+
+                        <p class="quick-summary" ng-if="where.summary">{{where.summary}}</p>
+
+                        <p class="quick-summary" ng-if="!where.summary">{{where.about}}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6 what" ng-if="resume_data.what">
+            <h3 title="What">Projects & Accomplishments</h3>
+
+            <div class="list-group">
+                <a href="/#what/{{what.slug}}" class="list-group-item thumbnail col-sm-6 col-md-12"
+                   ng-repeat="what in resume_data.what">
+                    <img src="{{what.logo}}" ng-if="what.logo">
+
+                    <div class="caption clearfix">
+                        <h4>{{what.name}}</h4>
+
+                        <p class="dates badge" ng-if="what.start">{{what.start}}<span
+                                ng-if="what.start && what.end"> - </span>{{what.end}}</p>
+
+                        <p class="quick-summary" ng-if="what.summary">{{what.summary}}</p>
+
+                        <p class="quick-summary" ng-if="!what.summary">{{what.about}}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="container">
+        <p>Skillfully crafted using <a href="https://github.com/trevorallred/trevorallred.github.io">Resume IO</a>.</p>
+    </div>
+</footer>

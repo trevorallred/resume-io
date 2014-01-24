@@ -1,0 +1,58 @@
+<ol class="breadcrumb">
+    <li><a href="/">Resume for {{resume_data.name}}</a></li>
+    <li class="active">{{where.name}}</li>
+</ol>
+<div class="container">
+    <div class="jumbotron">
+        <img src="{{where.logo}}" class="logo-thumb img-responsive img-thumbnail" ng-if="where.logo" />
+
+        <h2>{{where.name}}</h2>
+
+        <p class="dates badge" ng-if="where.start">{{where.start}}<span ng-if="where.end"> - </span>{{where.end}}</p>
+
+        <div ng-if="where.about">
+            <h5>About {{where.name}}</h5>
+
+            <p class="about">{{where.about}}</p>
+        </div>
+
+        <p ng-if="where.website"><a href="{{where.website}}">{{where.website}}</a></p>
+
+        <div ng-if="where.role">
+            <h5>My Role</h5>
+
+            <p class="role clearfix">{{where.role}}</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="what" ng-if="whats.length > 0">
+            <h3 title="What">Projects & Accomplishments</h3>
+
+            <div class="list-group">
+                <a href="/#what/{{what.slug}}" class="list-group-item thumbnail" ng-repeat="what in whats">
+                    <img src="{{what.logo}}" ng-if="what.logo">
+
+                    <div class="caption clearfix">
+                        <h4>{{what.name}}</h4>
+
+                        <p class="dates badge" ng-if="what.start">{{what.start}}<span
+                                ng-if="what.start && what.end"> - </span>{{what.end}}</p>
+
+                        <p class="quick-summary" ng-if="what.summary">{{what.summary}}</p>
+
+                        <p class="quick-summary" ng-if="!what.summary">{{what.about}}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-2 how" ng-if="hows.length > 0">
+            <h3 title="How">Skills</h3>
+
+            <div>
+                <a href="/#how/{{how.slug}}" class="badge" ng-repeat="how in hows">{{how.name}}</a>
+            </div>
+        </div>
+
+    </div>
+</div>

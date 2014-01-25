@@ -8,7 +8,7 @@ app.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
             when('/', {
-                templateUrl: 'app/overview.html',
+                templateUrl: 'app/partials/overview.html',
                 controller: 'overviewController',
                 resolve: {
                     resume_data: function(resumeService) {
@@ -17,7 +17,7 @@ app.config(['$routeProvider',
                 }
             }).
             when('/where/:slug', {
-                templateUrl: 'app/where.html',
+                templateUrl: 'app/partials/where.html',
                 controller: 'whereController',
                 resolve: {
                     resume_data: function(resumeService) {
@@ -26,7 +26,7 @@ app.config(['$routeProvider',
                 }
             }).
             when('/what/:slug', {
-                templateUrl: 'app/what.html',
+                templateUrl: 'app/partials/what.html',
                 controller: 'whatController',
                 resolve: {
                     resume_data: function(resumeService) {
@@ -35,7 +35,7 @@ app.config(['$routeProvider',
                 }
             }).
             when('/how/:slug', {
-                templateUrl: 'app/how.html',
+                templateUrl: 'app/partials/how.html',
                 controller: 'howController',
                 resolve: {
                     resume_data: function(resumeService) {

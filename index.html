@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp">
 <head>
-    <title>Sample Resume for John Doe</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume for {{resume_data.name}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://www.trevorallred.com/resume-io/app/themes/basic/style.css">
+    <link rel="stylesheet" href="app/themes/basic/style.css">
 
     <!--[if lt IE 9]>
     <script src="http://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -19,6 +19,5 @@
 </head>
 <body>
 <div ng-view></div>
-
 </body>
 </html>

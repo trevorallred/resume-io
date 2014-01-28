@@ -1,6 +1,6 @@
 <div id="wrap" class="container">
     <div class="jumbotron">
-        <div class="profile-photo col-md-3" style="text-align: center;">
+        <div class="profile-photo col-md-3" ng-if="resume_data.photo">
             <img class="img-circle" src="{{resume_data.photo}}">
         </div>
         <div class="col-md-9">
@@ -70,6 +70,6 @@
 </div>
 <footer>
     <div class="container">
-        <p>Skillfully crafted using <a href="https://github.com/trevorallred/trevorallred.github.io">Resume IO</a>.</p>
+        <p>Skillfully crafted using <a href="https://github.com/trevorallred/resume-io">Resume IO</a>.</p>
     </div>
 </footer>

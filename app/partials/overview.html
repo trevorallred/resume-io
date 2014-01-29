@@ -1,6 +1,14 @@
-<div class="alert alert-warning" ng-if="!resume_data.name">
-    <h1>Your Name is Missing</h1>
-    <p>Add <em>name</em> to resume.json</p>
+<div class="alert alert-warning" ng-if="resume_data.errors">
+    <h1>Resume Data Errors</h1>
+    <table class="table resume-error">
+        <tr ng-repeat="error in resume_data.errors">
+            <td><h4>{{error.problem}}</h4></td>
+            <td>{{error.description}}</td>
+        </tr>
+    </table>
+</div>
+<div>
+    <p ng-bind-html="'hello'"></p>
 </div>
 <div id="wrap" class="container" ng-if="resume_data.name">
     <div class="jumbotron">
@@ -18,7 +26,7 @@
 
     <div class="col-xs-12 how" ng-if="resume_data.how">
         <h3 title="How">Skills</h3>
-        <a href="/#how/{{how.slug}}" class="badge" ng-repeat="how in resume_data.how">{{how.name}}</a>
+        <a href="/#how/{{how.slug}}" class="badge badge-{{how.level}}" ng-repeat="how in resume_data.how">{{how.name}}</a>
     </div>
 
     <div class="row">

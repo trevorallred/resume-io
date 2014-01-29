@@ -16,7 +16,22 @@
             "logo": "samples/logo.jpg",
             "summary": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            "role": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            "role": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "whats": [
+                {
+                    "slug": "project1",
+                    "name": "Sample Project",
+                    "summary": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    "role": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    "screenshots": [
+                        "samples/screenshot-inkscape.png",
+                        "samples/american-cars-630.jpg"
+                    ],
+                    "start": "2013",
+                    "hows": [{"slug": "extjs", "level": 1}, "mysql", {"slug": "java", "level": 3}, "struts", "javascript"]
+                }
+            ]
         },
         {
             "slug": "company4",
@@ -49,30 +64,25 @@
             "name": "State University",
             "logo": "samples/logo.jpg",
             "start": "2000",
-            "end": "2004"
+            "end": "2004",
+            "whats": [
+                {
+                    "slug": "bs",
+                    "name": "Management Information Systems",
+                    "summary": "A BS degree with a perfect blend of business and computer science. We studied topics CS topics like database design, SDLC, Visual Basic",
+                    "about": "qweifqdvqoiwvnq wv",
+                    "where": "byu",
+                    "start": "1992",
+                    "end": "1998"
+                }
+            ]
         }
     ],
     "what": [
         {
-            "slug": "project1",
-            "name": "Sample Project",
-            "summary": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-            "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-            "role": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-            "where": "company5",
-            "screenshots": [
-                "samples/screenshot-inkscape.png",
-                "samples/american-cars-630.jpg"
-            ],
-            "start": "2013",
-            "hows": ["extjs", "mysql", "java", "struts", "javascript"]
-        },
-        {
-            "slug": "bs",
-            "name": "Management Information Systems",
-            "summary": "A BS degree with a perfect blend of business and computer science. We studied topics CS topics like database design, SDLC, Visual Basic",
-            "about": "qweifqdvqoiwvnq wv",
-            "where": "byu",
+            "slug": "random",
+            "name": "Other Random Sample Project",
+            "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             "start": "1992",
             "end": "1998"
         }

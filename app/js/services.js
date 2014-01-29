@@ -8,8 +8,8 @@ services.factory('resumeService', ['$http', 'resumeConverter', function ($http, 
         getRemoteData: function () {
             var resumeURL = 'resume.json';
 //            resumeURL = 'samples/sample-long.json';
-            // resumeURL = 'samples/sample-short.json';
-            resumeURL = 'samples/sample-errors.json';
+//            resumeURL = 'samples/sample-short.json';
+//            resumeURL = 'samples/sample-errors.json';
             return $http({ method: 'GET', url: resumeURL }).success(function (data) {
                 data = resumeConverter.convert(data);
                 return data;

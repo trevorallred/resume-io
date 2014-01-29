@@ -1,7 +1,16 @@
-<div class="alert alert-warning" ng-if="resume_data.errors">
+<div class="alert alert-danger" ng-if="resume_data.errors">
     <h1>Resume Data Errors</h1>
     <table class="table resume-error">
         <tr ng-repeat="error in resume_data.errors">
+            <td><h4>{{error.problem}}</h4></td>
+            <td ng-bind-html="error.description"></td>
+        </tr>
+    </table>
+</div>
+<div class="alert alert-warning" ng-if="resume_data.warnings">
+    <h1>Resume Data Warnings</h1>
+    <table class="table resume-error">
+        <tr ng-repeat="error in resume_data.warnings">
             <td><h4>{{error.problem}}</h4></td>
             <td ng-bind-html="error.description"></td>
         </tr>

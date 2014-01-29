@@ -30,122 +30,140 @@ services.factory('resumeConverter', function () {
             function findErrors() {
                 function clearErrors() {
                     data.errors = [];
+                    data.warnings = [];
                 }
 
+                clearErrors();
+
                 function addError(problem, description) {
-                    if (data.errors == undefined) {
-                        clearErrors();
-                    }
                     data.errors.push({
                         "problem": problem,
                         "description": description
                     });
                 }
 
+                function addWarning(problem, description) {
+                    data.warnings.push({
+                        "problem": problem,
+                        "description": description
+                    });
+                }
+
                 function formatJsonWithPre(json) {
+                    function formatJson(oData, sIndent) {
+                        if (arguments.length < 2) {
+                            var sIndent = "";
+                        }
+                        var sIndentStyle = "    ";
+                        var sDataType = realTypeOf(oData);
+                        // open object
+                        if (sDataType == "array") {
+                            if (oData.length == 0) {
+                                return "[]";
+                            }
+                            var sHTML = "[";
+                        } else {
+                            var iCount = 0;
+                            angular.forEach(oData, function () {
+                                iCount++;
+                                return;
+                            });
+                            if (iCount == 0) {
+                                // object is empty
+                                return "{}";
+                            }
+                            var sHTML = "{";
+                        }
+
+                        // loop through items
+                        var iCount = 0;
+                        angular.forEach(oData, function (vValue, sKey) {
+                            if (iCount > 0) {
+                                sHTML += ",";
+                            }
+                            if (sDataType == "array") {
+                                sHTML += ("\n" + sIndent + sIndentStyle);
+                            } else {
+                                sHTML += ("\n" + sIndent + sIndentStyle + "\"" + sKey + "\"" + ": ");
+                            }
+
+                            // display relevant data type
+                            switch (realTypeOf(vValue)) {
+                                case "array":
+                                case "object":
+                                    sHTML += formatJson(vValue, (sIndent + sIndentStyle));
+                                    break;
+                                case "boolean":
+                                case "number":
+                                    sHTML += vValue.toString();
+                                    break;
+                                case "null":
+                                    sHTML += "null";
+                                    break;
+                                case "string":
+                                    sHTML += ("\"" + vValue + "\"");
+                                    break;
+                                default:
+                                    sHTML += ("TYPEOF: " + typeof(vValue));
+                            }
+
+                            // loop
+                            iCount++;
+                        });
+
+                        // close object
+                        if (sDataType == "array") {
+                            sHTML += ("\n" + sIndent + "]");
+                        } else {
+                            sHTML += ("\n" + sIndent + "}");
+                        }
+
+                        // return
+                        return sHTML;
+                    }
+
+                    function realTypeOf(v) {
+                        if (typeof(v) == "object") {
+                            if (v === null) return "null";
+                            if (v.constructor == (new Array).constructor) return "array";
+                            if (v.constructor == (new Date).constructor) return "date";
+                            if (v.constructor == (new RegExp).constructor) return "regex";
+                            return "object";
+                        }
+                        return typeof(v);
+                    }
+
                     var output = "Sample JSON: <pre>";
                     output += formatJson(json);
                     output += "</pre>";
                     return output;
                 }
 
-                function formatJson(oData, sIndent) {
-                    if (arguments.length < 2) {
-                        var sIndent = "";
+                (function () {
+                    if (data.name == undefined || data.name.length == 0) {
+                        addError("Missing Name", formatJsonWithPre({"name": "Your Name Goes Here"}));
                     }
-                    var sIndentStyle = "    ";
-                    var sDataType = realTypeOf(oData);
-                    // open object
-                    if (sDataType == "array") {
-                        if (oData.length == 0) {
-                            return "[]";
-                        }
-                        var sHTML = "[";
+                    if (data.photo == undefined || data.photo.length == 0) {
+                        addWarning("Missing Profile Photo", "A photo of yourself is recommended. " + formatJsonWithPre({"photo": "relative_url_to_image"}));
+                    }
+                    if (data.where == undefined || data.where.length == 0) {
+                        var sampleJson = {
+                            "where": [
+                                {
+                                    "slug": "short_url_friendly_abbreviation",
+                                    "name": "Name of Company or University"
+                                }
+                            ]
+                        };
+                        addError("Missing Work History & Education", formatJsonWithPre(sampleJson));
                     } else {
-                        var iCount = 0;
-                        angular.forEach(oData, function () {
-                            iCount++;
-                            return;
-                        });
-                        if (iCount == 0) {
-                            // object is empty
-                            return "{}";
-                        }
-                        var sHTML = "{";
-                    }
-
-                    // loop through items
-                    var iCount = 0;
-                    angular.forEach(oData, function (sKey, vValue) {
-                        if (iCount > 0) {
-                            sHTML += ",";
-                        }
-                        if (sDataType == "array") {
-                            sHTML += ("\n" + sIndent + sIndentStyle);
-                        } else {
-                            sHTML += ("\n" + sIndent + sIndentStyle + "\"" + sKey + "\"" + ": ");
-                        }
-
-                        // display relevant data type
-                        switch (realTypeOf(vValue)) {
-                            case "array":
-                            case "object":
-                                sHTML += formatJson(vValue, (sIndent + sIndentStyle));
-                                break;
-                            case "boolean":
-                            case "number":
-                                sHTML += vValue.toString();
-                                break;
-                            case "null":
-                                sHTML += "null";
-                                break;
-                            case "string":
-                                sHTML += ("\"" + vValue + "\"");
-                                break;
-                            default:
-                                sHTML += ("TYPEOF: " + typeof(vValue));
-                        }
-
-                        // loop
-                        iCount++;
-                    });
-
-                    // close object
-                    if (sDataType == "array") {
-                        sHTML += ("\n" + sIndent + "]");
-                    } else {
-                        sHTML += ("\n" + sIndent + "}");
-                    }
-
-                    // return
-                    return sHTML;
-                }
-
-                function realTypeOf(v) {
-                    if (typeof(v) == "object") {
-                        if (v === null) return "null";
-                        if (v.constructor == (new Array).constructor) return "array";
-                        if (v.constructor == (new Date).constructor) return "date";
-                        if (v.constructor == (new RegExp).constructor) return "regex";
-                        return "object";
-                    }
-                    return typeof(v);
-                }
-
-                clearErrors();
-                if (data.name == undefined)
-                    addError("Missing Name", 'Sample JSON: <pre>{"name": "Your Name Goes Here"}</pre>');
-                if (data.where == undefined) {
-                    var sampleJson = {
-                        "where": [
-                            {
-                                "slug": "short_abbreviation"
+                        angular.forEach(data.where, function(where){
+                            if (where.slug == undefined) {
+                                addError("Missing Slug", formatJsonWithPre({"name": "Your Name Goes Here"}));
                             }
-                        ]
-                    };
-
-                    addError("Missing Work History & Education", formatJsonWithPre(sampleJson));
-                }
+                        });
+                    }
+                }());
             };
             findErrors();
 
@@ -186,10 +204,10 @@ services.factory('resumeConverter', function () {
             screenshotToArray();
 
             function copyWhats() {
-                angular.forEach(data.where, function(where) {
+                angular.forEach(data.where, function (where) {
                     if (where.whats != undefined) {
-                        angular.forEach(where.whats, function(what) {
-                                    data.what.push(what);
+                        angular.forEach(where.whats, function (what) {
+                            data.what.push(what);
                         });
                     }
                 });
@@ -199,31 +217,35 @@ services.factory('resumeConverter', function () {
 
             function copyHows() {
                 var hows = {};
-                for (var how in data.how) {
-                    hows[data.how[how].slug] = data.how[how];
-                }
-                for (var where in data.where) {
-                    if (data.where[where].whats != undefined) {
-                        for (var what in data.where[where].whats) {
-                            if (data.where[where].whats[what].hows != undefined) {
-                                for (var how in data.where[where].whats[what].hows) {
-                                    var original = data.where[where].whats[what].hows[how];
-                                    var full = {};
-                                    if (typeof original === "string") {
-                                        full.slug = original;
-                                    } else if (typeof original === "object") {
-                                        full = original;
-                                    }
-                                    full.name = hows[full.slug].name;
-                                    if (full.level == undefined) {
-                                        full.level = 2;
-                                    }
-                                    data.where[where].whats[what].hows[how] = full;
-                                }
-                            }
-                        }
+                angular.forEach(data.how, function (how) {
+                    hows[how.slug] = how;
+                });
+
+                function mergeHow(original) {
+                    var full = {};
+                    if (typeof original === "string") {
+                        full.slug = original;
+                    } else if (typeof original === "object") {
+                        full = original;
                     }
+                    full.name = hows[full.slug].name;
+                    if (full.level == undefined) {
+                        full.level = 2;
+                    }
+                    return full;
                 }
+
+                angular.forEach(data.where, function (where) {
+                    if (where.whats != undefined) {
+                        angular.forEach(where.whats, function (what) {
+                            if (what.hows != undefined) {
+                                angular.forEach(what.hows, function (how, key) {
+                                    what.hows[key] = mergeHow(how);
+                                });
+                            }
+                        });
+                    }
+                });
             }
 
             copyHows();

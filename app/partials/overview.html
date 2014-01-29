@@ -1,13 +1,13 @@
 <div class="alert alert-warning" ng-if="!resume_data.name">
     <h1>Your Name is Missing</h1>
-    <p>Add <i>name</i> to resume.json</p>
+    <p>Add <em>name</em> to resume.json</p>
 </div>
 <div id="wrap" class="container" ng-if="resume_data.name">
     <div class="jumbotron">
         <div class="profile-photo col-md-3" ng-if="resume_data.photo">
             <img class="img-circle" src="{{resume_data.photo}}">
         </div>
-        <div class="col-md-12">
+        <div class="col-md-9">
             <h1>{{resume_data.name}}</h1>
             <h3 ng-if="resume_data.tagline">{{resume_data.tagline}}</h3>
 

@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('myApp', [
-    'ngRoute', 'myApp.services', 'myApp.controllers'
+    'ngRoute', 'ui.bootstrap', 'myApp.services', 'myApp.controllers'
 ]);
 
 app.config(

@@ -6,6 +6,10 @@ h1, h3 {
     text-align: center;
 }
 
+div.profile-photo {
+    text-align: center;
+}
+
 div.profile-photo img {
     width: 100%;
     max-width: 200px;
@@ -53,6 +57,11 @@ img.logo-thumb {
     /* Negative indent footer by it's height */
     margin: 0 auto -0px;
     padding: 0 0 60px;
+}
+
+.what .carousel-inner {
+    /* height: 300px; */
+    margin-bottom: 1em;
 }
 
 footer {

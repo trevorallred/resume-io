@@ -3,12 +3,9 @@
     <table class="table resume-error">
         <tr ng-repeat="error in resume_data.errors">
             <td><h4>{{error.problem}}</h4></td>
-            <td>{{error.description}}</td>
+            <td ng-bind-html="error.description"></td>
         </tr>
     </table>
-</div>
-<div>
-    <p ng-bind-html="'hello'"></p>
 </div>
 <div id="wrap" class="container" ng-if="resume_data.name">
     <div class="jumbotron">

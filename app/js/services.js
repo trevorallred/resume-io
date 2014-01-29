@@ -1,6 +1,6 @@
 'use strict';
 
-var services = angular.module('myApp.services', []);
+var services = angular.module('myApp.services', ['ngSanitize']);
 
 services.factory('resumeService', ['$http', 'resumeConverter', function ($http, resumeConverter) {
     var resume_data = null;
@@ -44,9 +44,9 @@ services.factory('resumeConverter', function () {
             function findErrors() {
                 clearErrors();
                 if (data.name == undefined)
-                    addError("Missing Name", "Add name like this <pre>{'name': 'Yourname'}</pre>");
+                    addError("Missing Name", 'Sample JSON: <pre>{"name": "Your Name Goes Here"}</pre>');
                 if (data.where == undefined)
-                    addError("Missing Work History & Education", "Add history like  <pre>{'name': 'Yourname'}</pre>");
+                    addError("Missing ", 'Sample JSON: <pre>{"where": []</pre>');
             };
             findErrors();
 

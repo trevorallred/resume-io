@@ -49,7 +49,7 @@
         <h3 title="How">Skills Used</h3>
 
         <div>
-            <a href="/#how/{{how}}" class="badge" ng-repeat="how in what.hows">{{how}}</a>
+            <a href="/#how/{{how.slug}}" class="badge badge-{{how.level}}" ng-repeat="how in what.hows">{{how.name}}</a>
         </div>
     </div>
 </div>

@@ -1,0 +1,171 @@
+{
+    "name": "Jane Doe",
+    "tagline": "Web Developer",
+    "summary": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "photo": "samples/profile.jpg",
+    "highlights": {
+        "where": ["pics", "remedy", "rock", "uci"]
+    },
+    "where": [
+        {
+            "slug": "company5",
+            "name": "Sample Company 5",
+            "website": "http://www.sample.com/",
+            "start": "Jan 2010",
+            "end": "Current",
+            "logo": "samples/logo.jpg",
+            "summary": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "role": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            "whats": [
+                {
+                    "slug": "project1",
+                    "name": "Sample Project",
+                    "summary": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    "role": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+                    "screenshots": [
+                        "samples/screenshot-inkscape.png",
+                        "samples/american-cars-630.jpg"
+                    ],
+                    "start": "2013",
+                    "hows": [{"slug": "extjs", "level": 1}, "mysql", {"slug": "java", "level": 3}, "struts", "javascript"]
+                }
+            ]
+        },
+        {
+            "slug": "company4",
+            "name": "Sample Company 4",
+            "start": "Jan 2009",
+            "end": "Dec 2009",
+            "logo": "samples/logo.jpg",
+            "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "role": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        },
+        {
+            "slug": "company3",
+            "name": "Sample Company 3",
+            "start": "Jan 2008",
+            "end": "Dec 2008",
+            "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        },
+        {
+            "slug": "company2",
+            "name": "Sample Company 2",
+            "start": "Jan 2007",
+            "end": "Dec 2007"
+        },
+        {
+            "slug": "company1",
+            "name": "Sample Company 1"
+        },
+        {
+            "slug": "education1",
+            "name": "State University",
+            "logo": "samples/logo.jpg",
+            "start": "2000",
+            "end": "2004",
+            "whats": [
+                {
+                    "slug": "bs",
+                    "name": "Management Information Systems",
+                    "summary": "A BS degree with a perfect blend of business and computer science. We studied topics CS topics like database design, SDLC, Visual Basic",
+                    "about": "qweifqdvqoiwvnq wv",
+                    "where": "byu",
+                    "start": "1992",
+                    "end": "1998"
+                }
+            ]
+        }
+    ],
+    "what": [
+        {
+            "slug": "random",
+            "name": "Other Random Sample Project",
+            "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            "start": "1992",
+            "end": "1998"
+        }
+    ],
+    "how": [
+        {
+            "slug": "agile",
+            "type": "Management",
+            "name": "Agile"
+        },
+        {
+            "slug": "scrum",
+            "type": "Management",
+            "name": "Scrum"
+        },
+        {
+            "slug": "recruiting",
+            "type": "Management",
+            "name": "Recruiting"
+        },
+        {
+            "slug": "pm",
+            "type": "Management",
+            "name": "Product Management"
+        },
+        {
+            "slug": "java",
+            "type": "Language",
+            "name": "Java"
+        },
+        {
+            "slug": "javascript",
+            "type": "Language",
+            "name": "JavaScript"
+        },
+        {
+            "slug": "php",
+            "type": "Language",
+            "name": "PHP"
+        },
+        {
+            "slug": "csharp",
+            "type": "Language",
+            "name": "C#"
+        },
+        {
+            "slug": "mysql",
+            "type": "Database",
+            "name": "MySQL"
+        },
+        {
+            "slug": "oracle",
+            "type": "Database",
+            "name": "Oracle"
+        },
+        {
+            "slug": "sql-server",
+            "type": "Database",
+            "name": "MS SQL Server"
+        },
+        {
+            "slug": "linux",
+            "type": "OS",
+            "name": "Linux"
+        },
+        {
+            "slug": "struts",
+            "type": "Java",
+            "name": "Struts 2"
+        },
+        {
+            "slug": "junit",
+            "type": "Java",
+            "name": "jUnit"
+        },
+        {
+            "slug": "extjs",
+            "type": "JavaScript",
+            "name": "ExtJS"
+        },
+        {
+            "slug": "tenfold",
+            "name": "TenFold"
+        }
+    ]
+}

@@ -1,44 +1,44 @@
 'use strict';
 
 var app = angular.module('myApp', [
-    'ngRoute', 'myApp.services', 'myApp.controllers'
+    'ngRoute', 'ui.bootstrap', 'myApp.services', 'myApp.controllers'
 ]);
 
-app.config(['$routeProvider',
-    function ($routeProvider) {
+app.config(
+    function ($routeProvider, $locationProvider) {
         $routeProvider.
             when('/', {
-                templateUrl: 'app/partials/overview.html',
+                templateUrl: '/app/partials/overview.html',
                 controller: 'overviewController',
                 resolve: {
-                    resume_data: function(resumeService) {
+                    resume_data: function (resumeService) {
                         return resumeService.getResumeData();
                     }
                 }
             }).
             when('/where/:slug', {
-                templateUrl: 'app/partials/where.html',
+                templateUrl: '/app/partials/where.html',
                 controller: 'whereController',
                 resolve: {
-                    resume_data: function(resumeService) {
+                    resume_data: function (resumeService) {
                         return resumeService.getResumeData();
                     }
                 }
             }).
             when('/what/:slug', {
-                templateUrl: 'app/partials/what.html',
+                templateUrl: '/app/partials/what.html',
                 controller: 'whatController',
                 resolve: {
-                    resume_data: function(resumeService) {
+                    resume_data: function (resumeService) {
                         return resumeService.getResumeData();
                     }
                 }
             }).
             when('/how/:slug', {
-                templateUrl: 'app/partials/how.html',
+                templateUrl: '/app/partials/how.html',
                 controller: 'howController',
                 resolve: {
-                    resume_data: function(resumeService) {
+                    resume_data: function (resumeService) {
                         return resumeService.getResumeData();
                     }
                 }
@@ -46,18 +46,19 @@ app.config(['$routeProvider',
             otherwise({
                 redirectTo: '/'
             });
-    }]);
+    }
+);
 
-app.run(['$rootScope', function($root) {
+app.run(['$rootScope', function ($root) {
 
-    $root.$on('$routeChangeStart', function(e, curr, prev) {
+    $root.$on('$routeChangeStart', function (e, curr, prev) {
         if (curr.$$route && curr.$$route.resolve) {
             // Show a loading message until promises are resolved
             $root.loadingView = true;
         }
     });
 
-    $root.$on('$routeChangeSuccess', function(e, curr, prev) {
+    $root.$on('$routeChangeSuccess', function (e, curr, prev) {
         // Hide loading message
         $root.loadingView = false;
     });

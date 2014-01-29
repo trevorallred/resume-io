@@ -1,3 +1,4 @@
+<a name="/where/{{where.slug}}" />
 <ol class="breadcrumb">
     <li><a href="/">Resume for {{resume_data.name}}</a></li>
     <li class="active">{{where.name}}</li>
@@ -50,7 +51,7 @@
             <h3 title="How">Skills</h3>
 
             <div>
-                <a href="/#how/{{how.slug}}" class="badge" ng-repeat="how in hows">{{how.name}}</a>
+                <a href="/#how/{{how.slug}}" class="badge badge-{{how.level}}" ng-repeat="how in hows">{{how.name}}</a>
             </div>
         </div>
 

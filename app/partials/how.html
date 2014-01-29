@@ -1,13 +1,15 @@
+<ol class="breadcrumb">
+    <li><a href="/">Resume for {{resume_data.name}}</a></li>
+    <li class="active">{{how.name}}</li>
+</ol>
 <div class="container">
     <div class="row">
         <h2>{{how.name}}</h2>
 
-        <p class="dates badge">{{where.start}} - {{where.end}}</p>
+        <p class="dates badge" ng-if="how.start">{{how.start}}<span ng-if="how.end"> - </span>{{how.end}}</p>
 
-        <img src="images/logo-pics.png">
-        <h5>About {{where.name}}</h5>
-
-        <p class="about">{{where.about}}</p>
+        <img src="{{how.logo}}" ng-if="how.logo">
+        <p class="about">{{how.about}}</p>
 
         <h5>My Role</h5>
 

@@ -6,6 +6,10 @@ h1, h3 {
     text-align: center;
 }
 
+div.profile-photo {
+    text-align: center;
+}
+
 div.profile-photo img {
     width: 100%;
     max-width: 200px;
@@ -32,7 +36,6 @@ img.logo-thumb {
 
 .how {
     padding: 1em;
-    margin: 1em;
     background-color: #f7f7f9;
     border: 1px solid #e1e1e8;
     border-radius: 4px;
@@ -56,6 +59,11 @@ img.logo-thumb {
     padding: 0 0 60px;
 }
 
+.what .carousel-inner {
+    /* height: 300px; */
+    margin-bottom: 1em;
+}
+
 footer {
     height: 50px;
     background-color: #f9f9f9;
@@ -72,4 +80,16 @@ footer {
         padding-left: 20px;
         padding-right: 20px;
     }
+}
+
+.badge-1 {
+
+}
+
+.badge-2 {
+    font-size: 1.35em;
+}
+
+.badge-3 {
+    font-size: 2em;
 }

@@ -27,26 +27,125 @@ services.factory('resumeService', ['$http', 'resumeConverter', function ($http, 
 services.factory('resumeConverter', function () {
     return {
         convert: function (data) {
-            function clearErrors() {
-                data.errors = [];
-            }
-
-            function addError(problem, description) {
-                if (data.errors == undefined) {
-                    clearErrors();
-                }
-                data.errors.push({
-                    "problem": problem,
-                    "description": description
-                });
-            }
-
             function findErrors() {
+                function clearErrors() {
+                    data.errors = [];
+                }
+
+                function addError(problem, description) {
+                    if (data.errors == undefined) {
+                        clearErrors();
+                    }
+                    data.errors.push({
+                        "problem": problem,
+                        "description": description
+                    });
+                }
+
+                function formatJsonWithPre(json) {
+                    var output = "Sample JSON: <pre>";
+                    output += formatJson(json);
+                    output += "</pre>";
+                    return output;
+                }
+
+                function formatJson(oData, sIndent) {
+                    if (arguments.length < 2) {
+                        var sIndent = "";
+                    }
+                    var sIndentStyle = "    ";
+                    var sDataType = realTypeOf(oData);
+                    // open object
+                    if (sDataType == "array") {
+                        if (oData.length == 0) {
+                            return "[]";
+                        }
+                        var sHTML = "[";
+                    } else {
+                        var iCount = 0;
+                        angular.forEach(oData, function () {
+                            iCount++;
+                            return;
+                        });
+                        if (iCount == 0) {
+                            // object is empty
+                            return "{}";
+                        }
+                        var sHTML = "{";
+                    }
+
+                    // loop through items
+                    var iCount = 0;
+                    angular.forEach(oData, function (sKey, vValue) {
+                        if (iCount > 0) {
+                            sHTML += ",";
+                        }
+                        if (sDataType == "array") {
+                            sHTML += ("\n" + sIndent + sIndentStyle);
+                        } else {
+                            sHTML += ("\n" + sIndent + sIndentStyle + "\"" + sKey + "\"" + ": ");
+                        }
+
+                        // display relevant data type
+                        switch (realTypeOf(vValue)) {
+                            case "array":
+                            case "object":
+                                sHTML += formatJson(vValue, (sIndent + sIndentStyle));
+                                break;
+                            case "boolean":
+                            case "number":
+                                sHTML += vValue.toString();
+                                break;
+                            case "null":
+                                sHTML += "null";
+                                break;
+                            case "string":
+                                sHTML += ("\"" + vValue + "\"");
+                                break;
+                            default:
+                                sHTML += ("TYPEOF: " + typeof(vValue));
+                        }
+
+                        // loop
+                        iCount++;
+                    });
+
+                    // close object
+                    if (sDataType == "array") {
+                        sHTML += ("\n" + sIndent + "]");
+                    } else {
+                        sHTML += ("\n" + sIndent + "}");
+                    }
+
+                    // return
+                    return sHTML;
+                }
+
+                function realTypeOf(v) {
+                    if (typeof(v) == "object") {
+                        if (v === null) return "null";
+                        if (v.constructor == (new Array).constructor) return "array";
+                        if (v.constructor == (new Date).constructor) return "date";
+                        if (v.constructor == (new RegExp).constructor) return "regex";
+                        return "object";
+                    }
+                    return typeof(v);
+                }
+
                 clearErrors();
                 if (data.name == undefined)
                     addError("Missing Name", 'Sample JSON: <pre>{"name": "Your Name Goes Here"}</pre>');
-                if (data.where == undefined)
-                    addError("Missing ", 'Sample JSON: <pre>{"where": []</pre>');
+                if (data.where == undefined) {
+                    var sampleJson = {
+                        "where": [
+                            {
+                                "slug": "short_abbreviation"
+                            }
+                        ]
+                    };
+
+                    addError("Missing Work History & Education", formatJsonWithPre(sampleJson));
+                }
             };
             findErrors();
 
@@ -87,13 +186,13 @@ services.factory('resumeConverter', function () {
             screenshotToArray();
 
             function copyWhats() {
-                for (var where in data.where) {
-                    if (data.where[where].whats != undefined) {
-                        for (var what in data.where[where].whats) {
-                            data.what.push(data.where[where].whats[what])
-                        }
+                angular.forEach(data.where, function(where) {
+                    if (where.whats != undefined) {
+                        angular.forEach(where.whats, function(what) {
+                                    data.what.push(what);
+                        });
                     }
-                }
+                });
             }
 
             copyWhats();

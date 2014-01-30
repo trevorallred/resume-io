@@ -4,10 +4,6 @@ var app = angular.module('myApp', [
     'ngRoute', 'ui.bootstrap', 'myApp.services', 'myApp.controllers'
 ]);
 
-//            resumeURL = 'samples/sample-long.json';
-//            resumeURL = 'samples/sample-short.json';
-//            resumeURL = 'samples/sample-errors.json';
-
 app.config(
     function ($routeProvider, $locationProvider) {
         var resumeService = function (resumeService) {

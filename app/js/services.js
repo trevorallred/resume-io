@@ -4,8 +4,7 @@ var services = angular.module('myApp.services', ['ngSanitize']);
 
 services.factory('resumeService', ['$http', 'resumeConverter', function ($http, resumeConverter) {
     var resume_data;
-//    var url = 'resume.json'; // Default
-    var url = 'samples/sample-long.json';
+    var url = 'resume.json'; // Default
     return {
         getResumeUrl: function () {
             return url;

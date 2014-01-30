@@ -4,12 +4,12 @@ var controllers = angular.module('myApp.controllers', []);
 
 controllers.controller('overviewController', ['$scope', 'resume_data', function ($scope, resume_data) {
     $scope.resume_data = resume_data.data;
-    $scope.samples = [
-        {"slug": "resume", "name": "Default"},
-        {"slug": "sample-errors", "name": "Errors"},
-        {"slug": "sample-short", "name": "Short"},
-        {"slug": "sample-long", "name": "Long"}
-    ];
+//    $scope.samples = [
+//        {"slug": "resume", "name": "Default"},
+//        {"slug": "sample-errors", "name": "Errors"},
+//        {"slug": "sample-short", "name": "Short"},
+//        {"slug": "sample-long", "name": "Long"}
+//    ];
 }]);
 
 controllers.controller('resumeUrlController', [

@@ -20,9 +20,13 @@
 
         <p ng-if="where.website"><a href="{{where.website}}">{{where.website}}</a></p>
 
+        <div ng-if="where.title">
+            <h5>Title</h5>
+            <p class="title">{{where.title}}</p>
+        </div>
+
         <div ng-if="where.role">
             <h5>My Role</h5>
-
             <p class="role clearfix">{{where.role}}</p>
         </div>
     </div>

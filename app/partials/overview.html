@@ -54,6 +54,8 @@
                             <p class="dates badge" ng-if="where.start">{{where.start.display}}<span ng-if="where.end"> - </span>{{where.end.display}}
                             </p>
 
+                            <h5 ng-if="where.title">{{where.title}}</h5>
+
                             <p class="quick-summary" ng-if="where.summary">{{where.summary}}</p>
 
                             <p class="quick-summary" ng-if="!where.summary">{{where.about}}</p>

@@ -5,6 +5,26 @@
 describe('Resume Services', function () {
     beforeEach(module('myApp.services'));
 
+    describe('resumeService', function () {
+        var service;
+        beforeEach(function () {
+            inject(function ($injector) {
+                service = $injector.get('resumeService');
+            });
+        });
+
+        it('should set url to test.json', function () {
+            service.setResumeUrl("test");
+            expect(service.getResumeUrl()).toBe("test.json");
+        });
+
+        it('should set sample url to samples/sample-test.json', function () {
+            service.setResumeUrl("sample-test");
+            expect(service.getResumeUrl()).toBe("samples/sample-test.json");
+        });
+
+    });
+
     describe('resumeConverter', function () {
 //        var $httpBackend;
 //        beforeEach(inject(function (_$httpBackend_) {

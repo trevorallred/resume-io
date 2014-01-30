@@ -3,14 +3,22 @@
 var services = angular.module('myApp.services', ['ngSanitize']);
 
 services.factory('resumeService', ['$http', 'resumeConverter', function ($http, resumeConverter) {
-    var resume_data = null;
+    var resume_data;
+//    var url = 'resume.json'; // Default
+    var url = 'samples/sample-long.json';
     return {
+        getResumeUrl: function() {
+            return url;
+        },
+        setResumeUrl: function(newURL) {
+            url = newURL + ".json";
+            if (newURL.substr(0, 6) == "sample") {
+                url = "samples/" + url;
+            }
+            resume_data = null;
+        },
         getRemoteData: function () {
-            var resumeURL = 'resume.json';
-//            resumeURL = 'samples/sample-long.json';
-//            resumeURL = 'samples/sample-short.json';
-//            resumeURL = 'samples/sample-errors.json';
-            return $http({ method: 'GET', url: resumeURL }).success(function (data) {
+            return $http({ method: 'GET', url: url }).success(function (data) {
                 data = resumeConverter.convert(data);
                 return data;
             });

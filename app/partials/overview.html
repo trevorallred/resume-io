@@ -44,9 +44,9 @@
             </div>
 
             <div class="list-group">
-                <a href="/#where/{{where.slug}}" class="list-group-item thumbnail col-sm-6 col-md-12"
+                <a href="/#where/{{where.slug}}" class="list-group-item thumbnail col-xs-12"
                    ng-repeat="where in resume_data.where">
-                    <img src="{{where.logo}}" class="img-thumbnail img-responsive" ng-if="where.logo">
+                    <img src="{{where.logo}}" class="img-thumbnail img-responsive col-xs-12" ng-if="where.logo">
 
                     <div class="caption clearfix">
                         <p class="dates badge" ng-if="where.start">{{where.start}}<span ng-if="where.end"> - </span>{{where.end}}
@@ -67,7 +67,7 @@
             <div class="list-group">
                 <a href="/#what/{{what.slug}}" class="list-group-item thumbnail col-sm-6 col-md-12"
                    ng-repeat="what in resume_data.what">
-                    <img src="{{what.logo}}" ng-if="what.logo">
+                    <img src="{{what.screenshots[0]}}" ng-if="what.screenshots[0]">
 
                     <div class="caption clearfix">
                         <h4>{{what.name}}</h4>
@@ -86,6 +86,9 @@
 </div>
 <footer>
     <div class="container">
-        <p>Skillfully crafted using <a href="https://github.com/trevorallred/resume-io">Resume IO</a>.</p>
+        <p>
+            Skillfully crafted using <a href="https://github.com/trevorallred/resume-io">Resume IO</a>.
+            <a class="badge" href="/#resume/{{sample.slug}}" ng-repeat="sample in samples">{{sample.name}}</a>
+        </p>
     </div>
 </footer>

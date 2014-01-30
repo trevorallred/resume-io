@@ -33,7 +33,9 @@ controllers.controller('whatController', [
     function ($scope, $filter, $routeParams, resume_data) {
         $scope.resume_data = resume_data.data;
         $scope.what = $filter('filter')(resume_data.data.what, {slug: $routeParams.slug})[0];
-        $scope.where = $filter('filter')(resume_data.data.where, {slug: $scope.what.where})[0];
+        if ($scope.what.where != undefined) {
+            $scope.where = $filter('filter')(resume_data.data.where, {slug: $scope.what.where})[0];
+        }
     }]);
 
 controllers.controller('howController', [

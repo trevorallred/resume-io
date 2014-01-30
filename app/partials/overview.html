@@ -26,7 +26,7 @@
 
             <h3 ng-if="resume_data.tagline">{{resume_data.tagline}}</h3>
 
-            <p>{{resume_data.summary}}</p>
+            <p ng-bind-html="resume_data.summary"></p>
         </div>
         <div class="clearfix col-xm-12"></div>
     </div>
@@ -56,9 +56,9 @@
 
                             <h5 ng-if="where.title">{{where.title}}</h5>
 
-                            <p class="quick-summary" ng-if="where.summary">{{where.summary}}</p>
+                            <p class="quick-summary" ng-if="where.summary" ng-bind-html="where.summary"></p>
 
-                            <p class="quick-summary" ng-if="!where.summary">{{where.about}}</p>
+                            <p class="quick-summary" ng-if="!where.summary" ng-bind-html="where.about"></p>
                         </div>
                     </div>
                 </a>

@@ -15,7 +15,7 @@
         <div class="col-md-4 what" ng-if="what.screenshots.length > 0">
             <carousel interval="2000">
                 <slide ng-repeat="slide in what.screenshots">
-                    <img ng-src="{{slide}}" />
+                    <img ng-src="{{slide}}"/>
                 </slide>
             </carousel>
         </div>
@@ -29,27 +29,27 @@
             <div ng-if="!what.about && what.summary">
                 <h5>Summary</h5>
 
-                <p class="about">{{what.summary}}</p>
+                <p class="about" ng-bind-html="what.summary"></p>
             </div>
             <div ng-if="what.about">
                 <h5>About {{what.name}}</h5>
 
-                <p class="about">{{what.about}}</p>
+                <p class="about" ng-bind-html="what.about"></p>
 
                 <div ng-if="what.role">
                     <h5>My Role</h5>
 
-                    <p class="role">{{what.role}}</p>
+                    <p class="role" ng-bind-html="what.role"></p>
                 </div>
             </div>
             <p class="clearfix"></p>
         </div>
     </div>
-    <div class="how" ng-if="what.hows.length > 0">
-        <h3 title="How">Skills Used</h3>
-
-        <div>
-            <a href="/#how/{{how.slug}}" class="badge badge-{{how.level}}" ng-repeat="how in what.hows">{{how.name}}</a>
-        </div>
-    </div>
 </div>
+<footer class="how" ng-if="what.hows.length > 0">
+    <h3 title="How">Skills Used</h3>
+
+    <div>
+        <a href="/#how/{{how.slug}}" class="badge badge-{{how.level}}" ng-repeat="how in what.hows">{{how.name}}</a>
+    </div>
+</footer>

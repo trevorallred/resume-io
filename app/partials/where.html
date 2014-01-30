@@ -15,7 +15,7 @@
         <div ng-if="where.about">
             <h5>About {{where.name}}</h5>
 
-            <p class="about">{{where.about}}</p>
+            <p class="about" ng-bind-html="where.about"></p>
         </div>
 
         <p ng-if="where.website"><a href="{{where.website}}">{{where.website}}</a></p>
@@ -27,7 +27,7 @@
 
         <div ng-if="where.role">
             <h5>My Role</h5>
-            <p class="role clearfix">{{where.role}}</p>
+            <p class="role clearfix" ng-bind-html="where.role"></p>
         </div>
     </div>
 
@@ -49,9 +49,9 @@
                                     ng-if="what.end"> - </span>{{what.end.display}}
                             </p>
 
-                            <p class="quick-summary" ng-if="what.summary">{{what.summary}}</p>
+                            <p class="quick-summary" ng-if="what.summary" ng-bind-html="what.summary"></p>
 
-                            <p class="quick-summary" ng-if="!what.summary">{{what.about}}</p>
+                            <p class="quick-summary" ng-if="!what.summary" ng-bind-html="what.about"></p>
                         </div>
                     </div>
                 </a>

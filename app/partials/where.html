@@ -1,15 +1,16 @@
-<a name="/where/{{where.slug}}" />
+<a name="/where/{{where.slug}}"/>
 <ol class="breadcrumb">
     <li><a href="/">Resume for {{resume_data.name}}</a></li>
     <li class="active">{{where.name}}</li>
 </ol>
 <div class="container">
     <div class="jumbotron">
-        <img src="{{where.logo}}" class="logo-thumb img-responsive img-thumbnail" ng-if="where.logo" />
+        <img src="{{where.logo}}" class="logo-thumb img-responsive img-thumbnail" ng-if="where.logo"/>
 
         <h2>{{where.name}}</h2>
 
-        <p class="dates badge" ng-if="where.start">{{where.start}}<span ng-if="where.end"> - </span>{{where.end}}</p>
+        <p class="dates badge" ng-if="where.start">{{where.start.display}}<span ng-if="where.end"> - </span>{{where.end.display}}
+        </p>
 
         <div ng-if="where.about">
             <h5>About {{where.name}}</h5>
@@ -27,22 +28,27 @@
     </div>
 
     <div class="row">
-        <div class="what" ng-if="whats.length > 0">
+        <div class="what" ng-if="where.whats.length > 0">
             <h3 title="What">Projects & Accomplishments</h3>
 
             <div class="list-group">
-                <a href="/#what/{{what.slug}}" class="list-group-item thumbnail" ng-repeat="what in whats">
-                    <img src="{{what.logo}}" ng-if="what.logo">
+                <a href="/#what/{{what.slug}}" class="list-group-item thumbnail col-xs-12"
+                   ng-repeat="what in where.whats | orderBy:'start.date':true">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 text-center">
+                            <img src="{{what.screenshots[0]}}" class="logo" ng-if="what.screenshots[0]">
+                        </div>
+                        <div class="caption clearfix col-xs-12 col-sm-8">
+                            <h4 class="col-xs-12">{{what.name}}</h4>
 
-                    <div class="caption clearfix">
-                        <h4>{{what.name}}</h4>
+                            <p class="dates badge" ng-if="what.start">{{what.start.display}}<span
+                                    ng-if="what.end"> - </span>{{what.end.display}}
+                            </p>
 
-                        <p class="dates badge" ng-if="what.start">{{what.start}}<span
-                                ng-if="what.start && what.end"> - </span>{{what.end}}</p>
+                            <p class="quick-summary" ng-if="what.summary">{{what.summary}}</p>
 
-                        <p class="quick-summary" ng-if="what.summary">{{what.summary}}</p>
-
-                        <p class="quick-summary" ng-if="!what.summary">{{what.about}}</p>
+                            <p class="quick-summary" ng-if="!what.summary">{{what.about}}</p>
+                        </div>
                     </div>
                 </a>
             </div>
@@ -57,3 +63,5 @@
 
     </div>
 </div>
+<footer>
+</footer>

@@ -34,10 +34,6 @@ controllers.controller('whatController', [
         $scope.resume_data = resume_data.data;
         $scope.what = $filter('filter')(resume_data.data.what, {slug: $routeParams.slug})[0];
         $scope.where = $filter('filter')(resume_data.data.where, {slug: $scope.what.where})[0];
-        if (!$scope.what.start) {
-            $scope.what.start = $scope.where.start;
-            $scope.what.end = $scope.where.end;
-        }
     }]);
 
 controllers.controller('howController', [

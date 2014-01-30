@@ -23,13 +23,6 @@ img.logo-thumb {
     margin-bottom: 3px;
 }
 
-.thumbnail img {
-    width: 100%;
-    max-width: 200px;
-    float: left;
-    margin: 0 1em 0 0;
-}
-
 .where .dates, .what .dates {
     float: right;
 }
@@ -95,7 +88,7 @@ footer {
 }
 
 .logo {
-    max-height: 350px;
-    max-width: 350px;
+    max-height: 300px;
+    max-width: 300px;
     width: 100%;
 }

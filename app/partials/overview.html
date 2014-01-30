@@ -43,7 +43,7 @@
 
             <div class="list-group">
                 <a href="/#where/{{where.slug}}" class="list-group-item col-xs-12"
-                   ng-repeat="where in resume_data.where">
+                   ng-repeat="where in resume_data.where | orderBy:'start.date':true">
                     <div class="row">
                         <div class="col-xs-12 col-sm-4 text-center">
                             <img src="{{where.logo}}" class="logo" ng-if="where.logo">
@@ -51,7 +51,7 @@
                         <div class="caption clearfix col-xs-12 col-sm-8">
                             <h4 class="col-xs-12">{{where.name}}</h4>
 
-                            <p class="dates badge" ng-if="where.start">{{where.start}}<span ng-if="where.end"> - </span>{{where.end}}
+                            <p class="dates badge" ng-if="where.start">{{where.start.display}}<span ng-if="where.end"> - </span>{{where.end.display}}
                             </p>
 
                             <p class="quick-summary" ng-if="where.summary">{{where.summary}}</p>
@@ -68,7 +68,7 @@
 
             <div class="list-group">
                 <a href="/#what/{{what.slug}}" class="list-group-item thumbnail col-xs-12"
-                   ng-repeat="what in resume_data.what">
+                   ng-repeat="what in resume_data.what | orderBy:'start.date':true">
                     <div class="row">
                         <div class="col-xs-12 col-sm-4 text-center">
                             <img src="{{what.screenshots[0]}}" class="logo" ng-if="what.screenshots[0]">
@@ -76,7 +76,7 @@
                         <div class="caption clearfix col-xs-12 col-sm-8">
                             <h4 class="col-xs-12">{{what.name}}</h4>
 
-                            <p class="dates badge" ng-if="what.start">{{what.start}}<span ng-if="what.end"> - </span>{{what.end}}
+                            <p class="dates badge" ng-if="what.start">{{what.start.display}}<span ng-if="what.end"> - </span>{{what.end.display}}
                             </p>
 
                             <p class="quick-summary" ng-if="what.summary">{{what.summary}}</p>

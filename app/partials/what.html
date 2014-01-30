@@ -23,7 +23,7 @@
             <div>
                 <h5>When</h5>
 
-                <p class="dates badge" ng-if="what.start">{{what.start}}<span ng-if="what.end"> - </span>{{what.end}}
+                <p class="dates badge" ng-if="what.start">{{what.start.display}}<span ng-if="what.end"> - </span>{{what.end.display}}
                 </p>
             </div>
             <div ng-if="!what.about && what.summary">

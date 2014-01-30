@@ -51,6 +51,7 @@ describe('Resume Services', function () {
                             {
                                 "slug": "google-sso",
                                 "name": "Single Sign On",
+                                "start": "2000-01",
                                 "screenshots": "sample.png",
                                 "hows": ["mysql", {
                                     "slug": "java",
@@ -68,6 +69,7 @@ describe('Resume Services', function () {
                     {
                         "slug": "google-login2",
                         "name": "Login 2.0",
+                        "start": "2001-01",
                         "screenshots": "sample.png",
                         "hows": ["extjs", "mysql", {
                             "java": 3
@@ -100,6 +102,7 @@ describe('Resume Services', function () {
             var sampleData = service.convert(sampleDataOriginal());
             expect(sampleData.where.length).toBe(2);
             expect(sampleData.what.length).toBe(2);
+            expect(sampleData.what[1].where).toBe("google");
         });
 
         it("should create 'what' if it doesn't exist", function () {
@@ -173,6 +176,13 @@ describe('Resume Services', function () {
             var testDate = null;
             expect(utility.parseStringToDate(testDate)).toBe(null);
         });
+        it('should convert Current to Current', function () {
+            var testDate = "Current";
+            var today = new Date();
+            expect(utility.parseStringToDate(testDate).date.getFullYear()).toBe(today.getFullYear());
+            expect(utility.parseStringToDate(testDate).date.getMonth()).toBe(today.getMonth());
+            expect(utility.parseStringToDate(testDate).display).toBe("Current");
+        });
         it('should convert foo to null', function () {
             var testDate = "foo";
             expect(utility.parseStringToDate(testDate)).toBe(null);
@@ -183,11 +193,17 @@ describe('Resume Services', function () {
             expect(utility.parseStringToDate(testDate).date.getMonth()).toBe(0);
             expect(utility.parseStringToDate(testDate).display).toBe("1999");
         });
-        it('should convert 1999-02 to date with Jan 1999', function () {
+        it('should convert 1999-02 to date with Feb 1999', function () {
             var testDate = "1999-02";
             expect(utility.parseStringToDate(testDate).date.getFullYear()).toBe(1999);
             expect(utility.parseStringToDate(testDate).date.getMonth()).toBe(1);
             expect(utility.parseStringToDate(testDate).display).toBe("Feb 1999");
+        });
+        it('should throw error with Jan 1999', function () {
+            var testDate = "Jan 1999";
+            expect( function() {
+                utility.parseStringToDate(testDate);
+            }).toThrow(new Error("Invalid date " + testDate));
         });
     });
 });

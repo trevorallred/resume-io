@@ -263,7 +263,7 @@ services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
                         full = original;
                     }
                     if (hows[full.slug] == undefined) {
-                        var emptySlug = {"slug": full.slug, "name": full.slug, "autoadd": true};
+                        var emptySlug = {"slug": full.slug, "name": full.slug, "level": 1, "autoadd": true};
                         data.how.push(emptySlug);
                         hows[full.slug] = emptySlug;
                     }

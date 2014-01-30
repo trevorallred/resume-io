@@ -93,3 +93,9 @@ footer {
 .badge-3 {
     font-size: 2em;
 }
+
+.logo {
+    max-height: 350px;
+    max-width: 350px;
+    width: 100%;
+}

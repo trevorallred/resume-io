@@ -3,14 +3,22 @@
 var services = angular.module('myApp.services', ['ngSanitize']);
 
 services.factory('resumeService', ['$http', 'resumeConverter', function ($http, resumeConverter) {
-    var resume_data = null;
+    var resume_data;
+//    var url = 'resume.json'; // Default
+    var url = 'samples/sample-long.json';
     return {
+        getResumeUrl: function () {
+            return url;
+        },
+        setResumeUrl: function (newURL) {
+            url = newURL + ".json";
+            if (newURL.substr(0, 6) == "sample") {
+                url = "samples/" + url;
+            }
+            resume_data = null;
+        },
         getRemoteData: function () {
-            var resumeURL = 'resume.json';
-//            resumeURL = 'samples/sample-long.json';
-//            resumeURL = 'samples/sample-short.json';
-//            resumeURL = 'samples/sample-errors.json';
-            return $http({ method: 'GET', url: resumeURL }).success(function (data) {
+            return $http({ method: 'GET', url: url }).success(function (data) {
                 data = resumeConverter.convert(data);
                 return data;
             });
@@ -24,7 +32,7 @@ services.factory('resumeService', ['$http', 'resumeConverter', function ($http, 
     }
 }]);
 
-services.factory('resumeConverter', function () {
+services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
     return {
         convert: function (data) {
             function findErrors() {
@@ -157,7 +165,7 @@ services.factory('resumeConverter', function () {
                         };
                         addError("Missing Work History & Education", formatJsonWithPre(sampleJson));
                     } else {
-                        angular.forEach(data.where, function(where){
+                        angular.forEach(data.where, function (where) {
                             if (where.slug == undefined) {
                                 addError("Missing Slug", formatJsonWithPre({"name": "Your Name Goes Here"}));
                             }
@@ -181,6 +189,28 @@ services.factory('resumeConverter', function () {
                 }
             };
             initialize();
+
+            function convertDates() {
+                function convert(value, field) {
+                    if (value[field] != undefined)
+                        value[field] = dateUtil.parseStringToDate(value[field]);
+                }
+
+                angular.forEach(data.where, function (value) {
+                    convert(value, "start");
+                    convert(value, "end");
+                    angular.forEach(value.whats, function (value) {
+                        convert(value, "start");
+                        convert(value, "end");
+                    });
+                });
+                angular.forEach(data.what, function (value) {
+                    convert(value, "start");
+                    convert(value, "end");
+                });
+            }
+
+            convertDates();
 
             function screenshotToArray() {
                 function _screenshotToArray(what) {
@@ -207,6 +237,7 @@ services.factory('resumeConverter', function () {
                 angular.forEach(data.where, function (where) {
                     if (where.whats != undefined) {
                         angular.forEach(where.whats, function (what) {
+                            what.where = where.slug;
                             data.what.push(what);
                         });
                     }
@@ -253,7 +284,7 @@ services.factory('resumeConverter', function () {
             return data;
         }
     }
-});
+}]);
 
 services.factory('dateUtil', function () {
     var mthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -265,7 +296,19 @@ services.factory('dateUtil', function () {
                 return null;
             }
 
+            if (value == "Current") {
+                result.date = new Date();
+                result.display = "Current";
+                return result;
+            }
+
+            if (value == "Jan 1999") {
+            }
+
             result.year = parseInt(value.substr(0, 4));
+            if (isNaN(result.year)) {
+                throw new Error("Invalid date " + value);
+            }
             if (value.length == 4) {
                 result.date = new Date(result.year, 0, 1);
                 result.display = result.year + "";
@@ -273,6 +316,9 @@ services.factory('dateUtil', function () {
             }
 
             result.month = parseInt(value.substr(5, 2)) - 1;
+            if (result.month == NaN) {
+                throw new Error("Invalid date " + value);
+            }
             result.date = new Date(result.year, result.month, 1);
 
             result.display = mthNames[result.month] + " " + result.year;

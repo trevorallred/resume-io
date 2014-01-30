@@ -6,7 +6,7 @@
         {
             "slug": "foo",
             "name": "Foo Company, Inc",
-            "start": "Jan 2000",
+            "start": "2000-01",
             "end": "Current",
             "website": "http://www.company.com/",
             "about": "This is a fake company name."

@@ -11,7 +11,7 @@
             "slug": "company5",
             "name": "Sample Company 5",
             "website": "http://www.sample.com/",
-            "start": "Jan 2010",
+            "start": "2010-01",
             "end": "Current",
             "logo": "samples/logo.jpg",
             "summary": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -36,8 +36,8 @@
         {
             "slug": "company4",
             "name": "Sample Company 4",
-            "start": "Jan 2009",
-            "end": "Dec 2009",
+            "start": "2009-01",
+            "end": "2009-12",
             "logo": "samples/logo.jpg",
             "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             "role": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -45,19 +45,20 @@
         {
             "slug": "company3",
             "name": "Sample Company 3",
-            "start": "Jan 2008",
-            "end": "Dec 2008",
+            "start": "2008-01",
+            "end": "2008-12",
             "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         },
         {
             "slug": "company2",
             "name": "Sample Company 2",
-            "start": "Jan 2007",
-            "end": "Dec 2007"
+            "start": "2007-01",
+            "end": "2007-12"
         },
         {
             "slug": "company1",
-            "name": "Sample Company 1"
+            "name": "Sample Company 1",
+            "start": "2006"
         },
         {
             "slug": "education1",
@@ -69,9 +70,7 @@
                 {
                     "slug": "bs",
                     "name": "Management Information Systems",
-                    "summary": "A BS degree with a perfect blend of business and computer science. We studied topics CS topics like database design, SDLC, Visual Basic",
-                    "about": "qweifqdvqoiwvnq wv",
-                    "where": "byu",
+                    "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                     "start": "1992",
                     "end": "1998"
                 }

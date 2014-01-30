@@ -30,7 +30,7 @@
                         "samples/american-cars-630.jpg"
                     ],
                     "start": "2013",
-                    "hows": [{"slug": "extjs", "level": 1}, "mysql", {"slug": "java", "level": 3}, "struts", "javascript"]
+                    "hows": [{"slug": "extjs", "level": 1}, "mysql", {"slug": "java", "level": 3}, "struts", "javascript", "foo"]
                 }
             ]
         },
@@ -84,7 +84,8 @@
             "name": "Other Random Sample Project",
             "about": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             "start": "1992",
-            "end": "1998"
+            "end": "1998",
+            "hows": ["bar"]
         }
     ],
     "how": [

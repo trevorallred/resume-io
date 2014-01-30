@@ -246,7 +246,11 @@ services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
             copyWhats();
 
             function copyHows() {
-                var hows = {};
+                function getMapOfHows() {
+                    var howMap = {};
+                    return howMap;
+                }
+                var hows = getMapOfHows();
                 angular.forEach(data.how, function (how) {
                     hows[how.slug] = how;
                 });
@@ -258,6 +262,11 @@ services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
                     } else if (typeof original === "object") {
                         full = original;
                     }
+                    if (hows[full.slug] == undefined) {
+                        var emptySlug = {"slug": full.slug, "name": full.slug, "autoadd": true};
+                        data.how.push(emptySlug);
+                        hows[full.slug] = emptySlug;
+                    }
                     full.name = hows[full.slug].name;
                     if (full.level == undefined) {
                         full.level = 2;
@@ -265,6 +274,13 @@ services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
                     return full;
                 }
 
+                angular.forEach(data.what, function (what) {
+                    if (what.hows != undefined) {
+                        angular.forEach(what.hows, function (how, key) {
+                            what.hows[key] = mergeHow(how);
+                        });
+                    }
+                });
                 angular.forEach(data.where, function (where) {
                     if (where.whats != undefined) {
                         angular.forEach(where.whats, function (what) {

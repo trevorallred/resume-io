@@ -40,7 +40,7 @@ describe('Resume Services', function () {
             });
         });
 
-        var sampleDataOriginal = function() {
+        var sampleDataOriginal = function () {
             return {
                 "name": "Sample Person",
                 "where": [
@@ -123,6 +123,19 @@ describe('Resume Services', function () {
             expect(sampleData.how[0].level).toBe(2);
         });
 
+        it("should create how stub if it doesn't exist", function () {
+            var sampleData = {
+                "what": [
+                    {
+                        "slug": "test",
+                        "hows": ["foobar"]
+                    }
+                ]
+            };
+            service.convert(sampleData);
+            expect(sampleData.how.length).toBe(1);
+        });
+
         it("should copy how to where.whats.hows", function () {
             var sampleData = sampleDataOriginal();
             service.convert(sampleData);
@@ -201,7 +214,7 @@ describe('Resume Services', function () {
         });
         it('should throw error with Jan 1999', function () {
             var testDate = "Jan 1999";
-            expect( function() {
+            expect(function () {
                 utility.parseStringToDate(testDate);
             }).toThrow(new Error("Invalid date " + testDate));
         });

@@ -47,6 +47,7 @@ describe('Resume Services', function () {
                     {
                         "slug": "google",
                         "name": "Google",
+                        "start": "2000-01",
                         "whats": [
                             {
                                 "slug": "google-sso",
@@ -67,13 +68,14 @@ describe('Resume Services', function () {
                 ],
                 "what": [
                     {
-                        "slug": "google-login2",
+                        "slug": "google_login2",
                         "name": "Login 2.0",
                         "start": "2001-01",
                         "screenshots": "sample.png",
-                        "hows": ["extjs", "mysql", {
-                            "java": 3
-                        }]
+                        "hows": ["mysql", {
+                            "slug": "java",
+                            "level": 3
+                        }, "extjs", "bad_how"]
                     }
                 ],
                 "how": [
@@ -83,19 +85,41 @@ describe('Resume Services', function () {
                     },
                     {
                         "slug": "java",
-                        "name": "Java"
+                        "name": "Java",
+                        "start": "2002"
                     },
                     {
                         "slug": "angular",
-                        "name": "Angular JS"
+                        "name": "Angular JS",
+                        "start": "2002"
                     },
                     {
                         "slug": "mysql",
-                        "name": "MySQL"
+                        "name": "MySQL",
+                        "start": "1999-01"
                     }
                 ]
 
             };
+        }
+
+        /**
+         * Some constants so we can keep track of the order of elements
+         */
+        var mappingOrder = {
+            "where": {
+                "google": 0
+            },
+            "what": {
+                "google_login2": 0,
+                "google-sso": 1
+            },
+            "how": {
+                "extjs": 0,
+                "java": 1,
+                "angular": 2,
+                "mysql": 3
+            }
         }
 
         it('should copy where.what from where to what', function () {
@@ -115,6 +139,21 @@ describe('Resume Services', function () {
             var sampleData = {};
             service.convert(sampleData);
             expect(sampleData.how.length).toBe(0);
+        });
+
+        it("should convert all date strings to objects", function () {
+            var sampleData = service.convert(sampleDataOriginal());
+            expect(sampleData.where[mappingOrder.where.google].start.display).toBe("Jan 2000");
+            expect(sampleData.where[mappingOrder.where.google].whats[0].start.display).toBe("Jan 2000");
+            expect(sampleData.what[mappingOrder.what.google_login2].start.display).toBe("Jan 2001");
+            expect(sampleData.how[mappingOrder.how.angular].start.display).toBe("2002");
+        });
+
+        it("should update 'how.start' if earlier date is found", function () {
+            var sampleData = service.convert(sampleDataOriginal());
+            expect(sampleData.how[mappingOrder.how.mysql].start.display).toBe("Jan 1999");
+            expect(sampleData.how[mappingOrder.how.java].start.display).toBe("Jan 2000");
+            expect(sampleData.how[mappingOrder.how.extjs].start.display).toBe("Jan 2000");
         });
 
         it("should default 'how' to 2 if level doesn't exist", function () {

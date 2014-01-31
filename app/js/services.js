@@ -34,6 +34,12 @@ services.factory('resumeService', ['$http', 'resumeConverter', function ($http, 
 services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
     return {
         convert: function (data) {
+            if (data.converted != undefined) {
+                console.warn("Data was already converted. Don't call convert(data) twice.");
+                return data;
+            }
+            data.converted = true;
+
             function findErrors() {
                 function clearErrors() {
                     data.errors = [];
@@ -207,9 +213,97 @@ services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
                     convert(value, "start");
                     convert(value, "end");
                 });
+                angular.forEach(data.how, function (value) {
+                    convert(value, "start");
+                    convert(value, "end");
+                });
             }
 
             convertDates();
+
+            function updateHowDates() {
+
+                function buildHowMap() {
+                    var howMap = {};
+                    angular.forEach(data.how, function (value) {
+                        howMap[value.slug] = {
+                            "start": value.start,
+                            "end": value.end
+                        }
+                    });
+                    return howMap;
+                }
+
+                function findBestDateForHow(howMap) {
+                    function cloneDateObject(original) {
+                        return {
+                            "date": original.date,
+                            "display": original.display
+                        };
+                    }
+
+                    function copyDateFromHowsToHow(what) {
+                        if (what.start != undefined || what.end != undefined) {
+                            angular.forEach(what.hows, function (how) {
+                                var howSlug = how;
+                                if (typeof howSlug != "string") {
+                                    howSlug = how.slug;
+                                }
+
+                                if (howMap[howSlug] == undefined) {
+                                    howMap[howSlug] = addHow(howSlug);
+                                    var current_date = dateUtil.parseStringToDate("Current");
+                                    howMap[howSlug].start = current_date;
+                                }
+
+                                if (what.start != undefined) {
+                                    if (howMap[howSlug].start == undefined) {
+                                        howMap[howSlug].start = dateUtil.parseStringToDate("Current");
+                                    }
+                                    if (what.start.date < howMap[howSlug].start.date) {
+                                        howMap[howSlug].start = cloneDateObject(what.start);
+                                    }
+                                }
+                                if (what.end != undefined) {
+                                    if (howMap[howSlug].end == undefined) {
+                                        howMap[howSlug].end = dateUtil.parseStringToDate("Current");
+                                    }
+                                    if (what.end.date > howMap[howSlug].end.date) {
+                                        howMap[howSlug].end = cloneDateObject(what.end);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    angular.forEach(data.what, function (what) {
+                        copyDateFromHowsToHow(what);
+                    });
+                    angular.forEach(data.where, function (where) {
+                        copyDateFromHowsToHow(where);
+                        angular.forEach(where.whats, function (what) {
+                            copyDateFromHowsToHow(what);
+                        });
+                    });
+                }
+
+                function updateHowDate(howMap) {
+                    angular.forEach(data.how, function (value) {
+                        var current = howMap[value.slug];
+                        if (current.start != undefined) {
+                            value.start = current.start;
+                        }
+                        if (current.end != undefined) {
+                            value.end = current.end;
+                        }
+                    });
+                }
+
+                var howMap = buildHowMap();
+                findBestDateForHow(howMap);
+                updateHowDate(howMap);
+            }
+
+            updateHowDates();
 
             function screenshotToArray() {
                 function _screenshotToArray(what) {
@@ -245,6 +339,12 @@ services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
 
             copyWhats();
 
+            function addHow(slug) {
+                var emptySlug = {"slug": slug, "name": slug, "level": 1, "autoadd": true};
+                data.how.push(emptySlug);
+                return emptySlug;
+            }
+
             function copyHows() {
                 function getMapOfHows() {
                     var howMap = {};
@@ -263,9 +363,7 @@ services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
                         full = original;
                     }
                     if (hows[full.slug] == undefined) {
-                        var emptySlug = {"slug": full.slug, "name": full.slug, "level": 1, "autoadd": true};
-                        data.how.push(emptySlug);
-                        hows[full.slug] = emptySlug;
+                        hows[full.slug] = addHow(full.slug);;
                     }
                     full.name = hows[full.slug].name;
                     if (full.level == undefined) {
@@ -315,9 +413,6 @@ services.factory('dateUtil', function () {
                 result.date = new Date();
                 result.display = "Current";
                 return result;
-            }
-
-            if (value == "Jan 1999") {
             }
 
             result.year = parseInt(value.substr(0, 4));

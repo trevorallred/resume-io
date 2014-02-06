@@ -9,7 +9,6 @@
         "node_modules",
         "test"
     ],
-    "directory": "lib",
     "dependencies": {
         "angular": "1.2.11",
         "angular-route": "latest",

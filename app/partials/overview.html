@@ -76,14 +76,16 @@
                             <img src="{{what.screenshots[0]}}" class="logo" ng-if="what.screenshots[0]">
                         </div>
                         <div class="caption clearfix col-xs-12 col-sm-8">
-                            <h4 class="col-xs-12">{{what.name}}</h4>
+                            <h4 class="col-xs-12">{{what.name}}
+                                <small>@ {{what.where}}</small>
+                            </h4>
 
                             <p class="dates badge" ng-if="what.start">{{what.start.display}}<span ng-if="what.end"> - </span>{{what.end.display}}
                             </p>
 
-                            <p class="quick-summary" ng-if="what.summary">{{what.summary}}</p>
+                            <p class="quick-summary" ng-if="what.summary" ng-bind-html="what.summary"></p>
 
-                            <p class="quick-summary" ng-if="!what.summary">{{what.about}}</p>
+                            <p class="quick-summary" ng-if="!what.summary" ng-bind-html="what.about"></p>
                         </div>
                     </div>
                 </a>

@@ -2,6 +2,14 @@
 
 var services = angular.module('myApp.services', ['ngSanitize']);
 
+services.factory('appSettings', function() {
+    return {
+        language: 'en',
+        version: 1.0,
+        mode: 'production'
+    }
+});
+
 services.factory('resumeService', ['$http', 'resumeConverter', function ($http, resumeConverter) {
     var resume_data;
     var url = 'resume.json'; // Default
@@ -195,25 +203,52 @@ services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
             };
             initialize();
 
+            function mapAllTypes() {
+                data.howMap = {};
+                angular.forEach(data.how, function (value) {
+                    if (data.howMap[value.slug] != undefined) {
+                        throw new Error("Found two copies of " + value.slug);
+                    }
+                    data.howMap[value.slug] = value;
+                });
+                data.whatMap = {};
+                angular.forEach(data.what, function (value) {
+                    if (data.whatMap[value.slug] != undefined) {
+                        throw new Error("Found two copies of " + value.slug);
+                    }
+                    data.whatMap[value.slug] = value;
+                });
+                data.whereMap = {};
+                angular.forEach(data.where, function (value) {
+                    if (data.howMap[value.slug] != undefined) {
+                        console.error("Found two copies of " + value.slug);
+                    }
+                    data.whereMap[value.slug] = value;
+                    angular.forEach(value.whats, function (what) {
+                        if (data.howMap[value.slug] != undefined) {
+                            console.error("Found two copies of " + value.slug);
+                        }
+                        data.whatMap[what.slug] = what;
+                    });
+                });
+            }
+            mapAllTypes();
+
             function convertDates() {
                 function convert(value, field) {
                     if (value[field] != undefined)
                         value[field] = dateUtil.parseStringToDate(value[field]);
                 }
 
-                angular.forEach(data.where, function (value) {
-                    convert(value, "start");
-                    convert(value, "end");
-                    angular.forEach(value.whats, function (value) {
-                        convert(value, "start");
-                        convert(value, "end");
-                    });
-                });
-                angular.forEach(data.what, function (value) {
+                angular.forEach(data.whereMap, function (value) {
                     convert(value, "start");
                     convert(value, "end");
                 });
-                angular.forEach(data.how, function (value) {
+                angular.forEach(data.whatMap, function (value) {
+                    convert(value, "start");
+                    convert(value, "end");
+                });
+                angular.forEach(data.howMap, function (value) {
                     convert(value, "start");
                     convert(value, "end");
                 });
@@ -223,18 +258,7 @@ services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
 
             function updateHowDates() {
 
-                function buildHowMap() {
-                    var howMap = {};
-                    angular.forEach(data.how, function (value) {
-                        howMap[value.slug] = {
-                            "start": value.start,
-                            "end": value.end
-                        }
-                    });
-                    return howMap;
-                }
-
-                function findBestDateForHow(howMap) {
+                function findBestDateForHow() {
                     function cloneDateObject(original) {
                         return {
                             "date": original.date,
@@ -250,26 +274,26 @@ services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
                                     howSlug = how.slug;
                                 }
 
-                                if (howMap[howSlug] == undefined) {
-                                    howMap[howSlug] = addHow(howSlug);
+                                if (data.howMap[howSlug] == undefined) {
+                                    data.howMap[howSlug] = addMissingHow(howSlug);
                                     var current_date = dateUtil.parseStringToDate("Current");
-                                    howMap[howSlug].start = current_date;
+                                    data.howMap[howSlug].start = current_date;
                                 }
 
                                 if (what.start != undefined) {
-                                    if (howMap[howSlug].start == undefined) {
-                                        howMap[howSlug].start = dateUtil.parseStringToDate("Current");
+                                    if (data.howMap[howSlug].start == undefined) {
+                                        data.howMap[howSlug].start = dateUtil.parseStringToDate("Current");
                                     }
-                                    if (what.start.date < howMap[howSlug].start.date) {
-                                        howMap[howSlug].start = cloneDateObject(what.start);
+                                    if (what.start.date < data.howMap[howSlug].start.date) {
+                                        data.howMap[howSlug].start = cloneDateObject(what.start);
                                     }
                                 }
                                 if (what.end != undefined) {
-                                    if (howMap[howSlug].end == undefined) {
-                                        howMap[howSlug].end = dateUtil.parseStringToDate("Current");
+                                    if (data.howMap[howSlug].end == undefined) {
+                                        data.howMap[howSlug].end = dateUtil.parseStringToDate("Current");
                                     }
-                                    if (what.end.date > howMap[howSlug].end.date) {
-                                        howMap[howSlug].end = cloneDateObject(what.end);
+                                    if (what.end.date > data.howMap[howSlug].end.date) {
+                                        data.howMap[howSlug].end = cloneDateObject(what.end);
                                     }
                                 }
                             });
@@ -286,9 +310,9 @@ services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
                     });
                 }
 
-                function updateHowDate(howMap) {
+                function updateHowDate() {
                     angular.forEach(data.how, function (value) {
-                        var current = howMap[value.slug];
+                        var current = data.howMap[value.slug];
                         if (current.start != undefined) {
                             value.start = current.start;
                         }
@@ -298,35 +322,19 @@ services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
                     });
                 }
 
-                var howMap = buildHowMap();
-                findBestDateForHow(howMap);
-                updateHowDate(howMap);
+                findBestDateForHow();
+                updateHowDate();
             }
 
             updateHowDates();
 
-            function screenshotToArray() {
-                function _screenshotToArray(what) {
-                    if (what.screenshots != undefined && typeof what.screenshots == "string") {
-                        what.screenshots = new Array(what.screenshots);
-                    }
-                }
-
-                for (var where in data.where) {
-                    if (data.where[where].whats != undefined) {
-                        for (var what in data.where[where].whats) {
-                            _screenshotToArray(data.where[where].whats[what]);
-                        }
-                    }
-                }
-                for (var what in data.what) {
-                    _screenshotToArray(data.what[what]);
-                }
+            function addMissingHow(slug) {
+                var emptySlug = {"slug": slug, "name": slug, "level": 1, "autoadd": true};
+                data.how.push(emptySlug);
+                return emptySlug;
             }
 
-            screenshotToArray();
-
-            function copyWhats() {
+            function copyWhereWhatsToWhat() {
                 angular.forEach(data.where, function (where) {
                     if (where.whats != undefined) {
                         angular.forEach(where.whats, function (what) {
@@ -337,24 +345,9 @@ services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
                 });
             }
 
-            copyWhats();
-
-            function addHow(slug) {
-                var emptySlug = {"slug": slug, "name": slug, "level": 1, "autoadd": true};
-                data.how.push(emptySlug);
-                return emptySlug;
-            }
+            copyWhereWhatsToWhat();
 
             function copyHows() {
-                function getMapOfHows() {
-                    var howMap = {};
-                    return howMap;
-                }
-                var hows = getMapOfHows();
-                angular.forEach(data.how, function (how) {
-                    hows[how.slug] = how;
-                });
-
                 function mergeHow(original) {
                     var full = {};
                     if (typeof original === "string") {
@@ -362,10 +355,10 @@ services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
                     } else if (typeof original === "object") {
                         full = original;
                     }
-                    if (hows[full.slug] == undefined) {
-                        hows[full.slug] = addHow(full.slug);;
+                    if (data.howMap[full.slug] == undefined) {
+                        data.howMap[full.slug] = addMissingHow(full.slug);;
                     }
-                    full.name = hows[full.slug].name;
+                    full.name = data.howMap[full.slug].name;
                     if (full.level == undefined) {
                         full.level = 2;
                     }
@@ -393,6 +386,19 @@ services.factory('resumeConverter', ['dateUtil', function (dateUtil) {
             }
 
             copyHows();
+
+            function screenshotToArray() {
+                function _screenshotToArray(what) {
+                    if (what.screenshots != undefined && typeof what.screenshots == "string") {
+                        what.screenshots = new Array(what.screenshots);
+                    }
+                }
+
+                for (var what in data.whatMap) {
+                    _screenshotToArray(data.whatMap[what]);
+                }
+            }
+            screenshotToArray();
 
             return data;
         }
@@ -426,7 +432,7 @@ services.factory('dateUtil', function () {
             }
 
             result.month = parseInt(value.substr(5, 2)) - 1;
-            if (result.month == NaN) {
+            if (isNaN(result.month)) {
                 throw new Error("Invalid date " + value);
             }
             result.date = new Date(result.year, result.month, 1);

@@ -6,7 +6,7 @@
     <div class="row">
         <h2>{{how.name}}</h2>
 
-        <p class="dates badge" ng-if="how.start">{{how.start}}<span ng-if="how.end"> - </span>{{how.end}}</p>
+        <p class="dates badge" ng-if="how.start">{{how.start.display}}<span ng-if="how.end"> - </span>{{how.display}}</p>
 
         <img src="{{how.logo}}" ng-if="how.logo">
         <p class="about">{{how.about}}</p>
@@ -15,7 +15,7 @@
 
         <p class="role">{{where.role}}</p>
 
-        <div class="col-lg-5 what" ng-if="whats.length > 0">
+        <div class="col-lg-5 what" ng-if="how.whats.length > 0">
             <h3 title="What">Projects & Accomplishments</h3>
 
             <div class="list-group">

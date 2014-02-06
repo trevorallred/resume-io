@@ -24,8 +24,8 @@ controllers.controller('whereController', [
     function ($scope, $filter, $routeParams, resume_data) {
         $scope.resume_data = resume_data.data;
         $scope.where = $filter('filter')(resume_data.data.where, {slug: $routeParams.slug})[0];
-        $scope.whats = $filter('filter')(resume_data.data.what, {where: $routeParams.slug});
-        $scope.hows = $filter('filter')(resume_data.data.how, {where: $routeParams.slug});
+//        $scope.whats = $filter('filter')(resume_data.data.what, {where: $routeParams.slug});
+//        $scope.hows = $filter('filter')(resume_data.data.how, {where: $routeParams.slug});
     }]);
 
 controllers.controller('whatController', [
@@ -43,6 +43,6 @@ controllers.controller('howController', [
     function ($scope, $filter, $routeParams, resume_data) {
         $scope.resume_data = resume_data.data;
         $scope.how = $filter('filter')(resume_data.data.how, {slug: $routeParams.slug})[0];
-        $scope.whats = $filter('filter')(resume_data.data.whats, {where: $routeParams.slug});
-        $scope.wheres = $filter('filter')(resume_data.data.what, {where: $routeParams.slug});
+//        $scope.whats = $filter('filter')(resume_data.data.whats, {how: $routeParams.slug});
+//        $scope.wheres = $filter('filter')(resume_data.data.what, {where: $routeParams.slug});
     }]);

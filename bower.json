@@ -1,0 +1,24 @@
+{
+    "name": "resume-io",
+    "version": "0.1.0",
+    "description": "Resume builder based on a custom JSON file to track work history, education, projects, and skills. Fork and host on Github IO.",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "node_modules",
+        "test"
+    ],
+    "directory": "lib",
+    "dependencies": {
+        "angular": "1.2.11",
+        "angular-route": "latest",
+        "angular-sanitize": "latest",
+        "bootstrap": "3.0.3",
+        "angular-bootstrap": "0.10.0",
+        "angular-ui-bootstrap": "0.10.0",
+        "angular-ui-utils": "0.1.0",
+        "html5shiv": "3.7.0",
+        "respond": "1.4.2"
+    }
+}

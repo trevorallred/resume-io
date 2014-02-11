@@ -2,7 +2,6 @@
 
 echo "Minifying AngularJS files for ResumeIO"
 
-
 export RESUME_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd ../ && pwd )"
 export APP_DIR=$RESUME_HOME/app
 
@@ -20,7 +19,6 @@ wc $APP_DIR/concat.annotated.js
 echo "Minifying"
 java -jar $RESUME_HOME/scripts/compiler.jar --js $APP_DIR/concat.annotated.js --compilation_level SIMPLE_OPTIMIZATIONS --js_output_file $APP_DIR/resume-io.min.js
 
-# rm $APP_DIR/concat.js
-# rm $APP_DIR/concat.annotated.js
+rm $APP_DIR/concat*.js
 
 wc $APP_DIR/resume-io.min.js

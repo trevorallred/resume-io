@@ -4,11 +4,11 @@ var app = angular.module('myApp', [
     'ngRoute', 'ui.bootstrap', 'myApp.services', 'myApp.controllers'
 ]);
 
-app.config(
+app.config(['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {
-        var resumeService = function (resumeService) {
+        var resumeService = ['resumeService', function (resumeService) {
             return resumeService.getResumeData();
-        };
+        }];
 
         $routeProvider.
             when('/', {
@@ -47,7 +47,7 @@ app.config(
                 redirectTo: '/'
             });
     }
-);
+]);
 
 app.run(['$rootScope', function ($root) {
 

@@ -5,7 +5,7 @@
 </ol>
 <div class="container">
     <div class="jumbotron">
-        <img src="{{where.logo}}" class="logo-thumb img-responsive img-thumbnail" ng-if="where.logo"/>
+        <img ng-src="{{where.logo}}" class="logo-thumb img-responsive img-thumbnail" ng-if="where.logo"/>
 
         <h2>{{where.name}}</h2>
 
@@ -40,7 +40,7 @@
                    ng-repeat="what in where.whats | orderBy:'start.date':true">
                     <div class="row">
                         <div class="col-xs-12 col-sm-4 text-center">
-                            <img src="{{what.screenshots[0]}}" class="logo" ng-if="what.screenshots[0]">
+                            <img ng-src="{{what.screenshots[0]}}" class="logo" ng-if="what.screenshots[0]">
                         </div>
                         <div class="caption clearfix col-xs-12 col-sm-8">
                             <h4 class="col-xs-12">{{what.name}}</h4>

@@ -2,14 +2,6 @@
 
 var services = angular.module('myApp.services', ['ngSanitize']);
 
-services.factory('appSettings', function() {
-    return {
-        language: 'en',
-        version: 1.0,
-        mode: 'production'
-    }
-});
-
 services.factory('resumeService', ['$http', 'resumeConverter', function ($http, resumeConverter) {
     var resume_data;
     var url = 'resume.json'; // Default

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="myApp">
 <head>
-    <title>Resume for {{resume_data.name}}</title>
+    <title ng-bind="'Resume for ' + $root.title"></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="app/themes/basic/style.css">
@@ -16,9 +16,12 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 
+    <!--<script src="app/resume-io.min.js"></script>-->
     <script src="app/js/app.js"></script>
     <script src="app/js/controllers.js"></script>
     <script src="app/js/services.js"></script>
+
+    <script src="app/env/dev.js"></script>
 </head>
 <body>
 <div ng-view></div>

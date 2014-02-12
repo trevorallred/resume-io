@@ -1,55 +1,57 @@
 'use strict';
 
-var app = angular.module('myApp', [
+angular.module('myApp', [
     'ngRoute', 'ui.bootstrap', 'myApp.services', 'myApp.controllers'
 ]);
 
-app.config(['$routeProvider', '$locationProvider',
-    function ($routeProvider, $locationProvider) {
+angular.module('myApp').config(
+    function ($routeProvider, appSettings) {
         var resumeService = ['resumeService', function (resumeService) {
             return resumeService.getResumeData();
         }];
 
+        var PARTIAL_ROOT = appSettings.partialRoot || 'bower_components/resume-io/app/partials/';
         $routeProvider.
             when('/', {
-                templateUrl: '/app/partials/overview.html',
+                templateUrl: PARTIAL_ROOT + 'overview.html',
                 controller: 'overviewController',
+                title: resumeService,
                 resolve: {
                     resume_data: resumeService
                 }
             }).
             when('/where/:slug', {
-                templateUrl: '/app/partials/where.html',
+                templateUrl: PARTIAL_ROOT + 'where.html',
                 controller: 'whereController',
                 resolve: {
                     resume_data: resumeService
                 }
             }).
             when('/what/:slug', {
-                templateUrl: '/app/partials/what.html',
+                templateUrl: PARTIAL_ROOT + 'what.html',
                 controller: 'whatController',
                 resolve: {
                     resume_data: resumeService
                 }
             }).
             when('/how/:slug', {
-                templateUrl: '/app/partials/how.html',
+                templateUrl: PARTIAL_ROOT + 'how.html',
                 controller: 'howController',
                 resolve: {
                     resume_data: resumeService
                 }
             }).
             when('/resume/:url', {
-                templateUrl: '/app/partials/overview.html',
+                templateUrl: PARTIAL_ROOT + 'overview.html',
                 controller: 'resumeUrlController'
             }).
             otherwise({
                 redirectTo: '/'
             });
     }
-]);
+);
 
-app.run(['$rootScope', function ($root) {
+angular.module('myApp').run(['$rootScope', function ($root) {
 
     $root.$on('$routeChangeStart', function (e, curr, prev) {
         if (curr.$$route && curr.$$route.resolve) {
@@ -61,6 +63,10 @@ app.run(['$rootScope', function ($root) {
     $root.$on('$routeChangeSuccess', function (e, curr, prev) {
         // Hide loading message
         $root.loadingView = false;
+        //Change page title, based on Route information
+        $root.title = curr.locals.resume_data.data.name;
     });
 
 }]);
+
+
